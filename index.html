@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SuperGames: juegos para iPhone hechos en Chile</title>
+<meta name="description" content="SuperGames es el estudio de juegos para iPhone de Supertools. Juegos gratis, sin pagar para ganar y con anuncios que no molestan.">
+<meta name="theme-color" content="#2B3BFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cobalto:#2B3BFF; --sol:#FFD23F; --chicle:#FF5FA2; --menta:#2EE6A6;
+    --tinta:#1A1446; --lila:#EEF0FF; --blanco:#fff;
+    --borde:3px solid var(--tinta); --sombra:6px 6px 0 var(--tinta);
+    --titulo:"Dela Gothic One",system-ui,sans-serif;
+    --texto:"Lexend",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--texto);font-size:17px;line-height:1.6;color:var(--tinta);background:var(--lila)}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--sol);outline-offset:3px;border-radius:6px}
+  h1,h2,h3{font-family:var(--titulo);font-weight:400;line-height:1.05;margin:0}
+
+  /* ---------- Hero ---------- */
+  .hero{background:var(--cobalto);color:var(--blanco);overflow:hidden;position:relative}
+  .hero::before{content:"";position:absolute;inset:0;opacity:.18;pointer-events:none;
+    background-image:radial-gradient(var(--blanco) 1.5px,transparent 1.5px);background-size:26px 26px}
+  .barra{position:relative;display:flex;justify-content:space-between;align-items:center;
+    max-width:1120px;margin:0 auto;padding:22px 24px}
+  .marca{font-family:var(--titulo);font-size:22px;text-decoration:none}
+  .barra nav{display:flex;gap:6px}
+  .barra nav a{text-decoration:none;font-weight:500;padding:8px 14px;border-radius:999px}
+  .barra nav a:hover{background:rgba(255,255,255,.14)}
+  .hero-cuerpo{position:relative;max-width:1120px;margin:0 auto;padding:24px 24px 0;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end}
+  .hero h1{font-size:clamp(56px,10vw,128px);letter-spacing:-.02em;
+    color:var(--sol);text-shadow:5px 5px 0 var(--tinta);-webkit-text-stroke:2px var(--tinta);paint-order:stroke fill}
+  .hero h1 span{display:block;color:var(--blanco)}
+  .bajada{font-size:clamp(18px,2.2vw,22px);max-width:30ch;margin:24px 0 0}
+  .boton{display:inline-block;margin:32px 0 64px;background:var(--sol);color:var(--tinta);
+    font-weight:700;text-decoration:none;padding:14px 26px;border:var(--borde);border-radius:14px;
+    box-shadow:var(--sombra);transition:transform .12s,box-shadow .12s}
+  .boton:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--tinta)}
+  .boton:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--tinta)}
+
+  .telefono{justify-self:center;width:min(310px,76vw);aspect-ratio:9/18.5;background:var(--tinta);
+    border-radius:46px 46px 0 0;padding:12px 12px 0;box-shadow:12px 0 0 rgba(26,20,70,.35);position:relative}
+  .telefono::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);
+    width:86px;height:24px;border-radius:14px;background:var(--tinta);z-index:2}
+  .pantalla{width:100%;height:100%;border-radius:36px 36px 0 0;overflow:hidden;background:#FFF6DA;position:relative}
+  #juego{display:block;width:100%;height:100%;touch-action:manipulation;cursor:pointer}
+
+  /* ---------- Secciones ---------- */
+  .seccion{max-width:1120px;margin:0 auto;padding:96px 24px}
+  .seccion h2{font-size:clamp(36px,5vw,56px);max-width:16ch}
+  .intro{max-width:56ch;font-size:19px;margin:18px 0 0}
+
+  .reglas{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+  .sticker{border:var(--borde);border-radius:22px;box-shadow:var(--sombra);padding:28px}
+  .sticker h3{font-size:24px;margin-bottom:10px}
+  .sticker p{margin:0}
+  .sticker:nth-child(1){background:var(--sol);transform:rotate(-1.5deg)}
+  .sticker:nth-child(2){background:var(--menta);transform:rotate(1deg) translateY(18px)}
+  .sticker:nth-child(3){background:var(--chicle);transform:rotate(-.5deg)}
+
+  .juegos{background:var(--tinta);color:var(--blanco)}
+  .juegos .seccion{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .ranura{border:3px dashed rgba(255,255,255,.45);border-radius:28px;padding:40px;text-align:center}
+  .ranura .icono{width:120px;height:120px;margin:0 auto 20px;border-radius:28px;
+    background:conic-gradient(var(--sol) 0 25%,var(--chicle) 0 50%,var(--menta) 0 75%,var(--cobalto) 0);
+    border:3px solid var(--blanco)}
+  .ranura h3{font-size:26px}
+  .ranura p{margin:8px 0 0;opacity:.8}
+
+  /* ---------- Privacidad ---------- */
+  .legal{display:grid;grid-template-columns:220px 1fr;gap:56px;align-items:start}
+  .indice{position:sticky;top:24px;font-size:15px}
+  .indice p{font-weight:700;margin:0 0 10px}
+  .indice ol{list-style:none;margin:0;padding:0;border-left:3px solid var(--tinta)}
+  .indice a{display:block;padding:5px 0 5px 14px;text-decoration:none;opacity:.75}
+  .indice a:hover{opacity:1;text-decoration:underline}
+  .documento{background:var(--blanco);border:var(--borde);border-radius:22px;padding:clamp(24px,5vw,56px);max-width:72ch}
+  .documento h2{font-size:clamp(32px,4.5vw,48px)}
+  .documento h3{font-size:22px;margin:40px 0 8px;scroll-margin-top:24px}
+  .documento p,.documento li{line-height:1.7}
+  .documento ul{padding-left:22px}
+  .fecha{opacity:.65;margin:10px 0 28px}
+  .documento a{color:var(--cobalto);font-weight:500}
+
+  /* ---------- Soporte ---------- */
+  .soporte{background:var(--sol);border-top:var(--borde);border-bottom:var(--borde)}
+  .soporte .seccion{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
+  .soporte p{max-width:48ch;margin:16px 0 0;font-size:18px}
+  .correo{font-family:var(--titulo);font-size:clamp(20px,3vw,30px);text-decoration:none;
+    background:var(--blanco);border:var(--borde);border-radius:16px;box-shadow:var(--sombra);padding:18px 26px;
+    transition:transform .12s,box-shadow .12s}
+  .correo:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--tinta)}
+
+  footer{max-width:1120px;margin:0 auto;padding:36px 24px 48px;font-size:15px;
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:860px){
+    .hero-cuerpo{grid-template-columns:1fr;gap:8px}
+    .boton{margin-bottom:40px}
+    .reglas{grid-template-columns:1fr;gap:22px}
+    .sticker:nth-child(2){transform:rotate(1deg)}
+    .juegos .seccion{grid-template-columns:1fr}
+    .legal{grid-template-columns:1fr}
+    .indice{position:static}
+    .barra nav a:not(:last-child){display:none}
+    .seccion{padding:72px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .boton,.correo{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="barra">
+    <a class="marca" href="#">SuperGames</a>
+    <nav aria-label="Secciones">
+      <a href="#juegos">Juegos</a>
+      <a href="#privacidad">Privacidad</a>
+      <a href="#soporte">Soporte</a>
+    </nav>
+  </div>
+  <div class="hero-cuerpo">
+    <div>
+      <h1>Super<span>Games</span></h1>
+      <p class="bajada">Juegos cortos para iPhone, hechos en Chile. Gratis, sin pagar para ganar y con anuncios que no te cortan la partida.</p>
+      <a class="boton" href="#juegos">Ver nuestros juegos</a>
+    </div>
+    <div class="telefono">
+      <div class="pantalla">
+        <canvas id="juego" aria-label="Minijuego: toca las figuras que suben para sumar puntos"></canvas>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="seccion" aria-labelledby="t-reglas">
+    <h2 id="t-reglas">Jugar tiene que ser justo</h2>
+    <p class="intro">Hacemos los juegos que nos gustaría encontrar en la App Store. Por eso seguimos tres reglas en todos.</p>
+    <div class="reglas">
+      <article class="sticker">
+        <h3>Nadie paga para ganar</h3>
+        <p>Lo que se compra es opcional: colores, estelas, el pase de temporada o quitar los anuncios. Las ventajas se ganan jugando.</p>
+      </article>
+      <article class="sticker">
+        <h3>Anuncios con modales</h3>
+        <p>Nunca a mitad de partida y nunca en las primeras. Si quieres un premio extra, tú eliges ver un anuncio.</p>
+      </article>
+      <article class="sticker">
+        <h3>Tus datos se quedan contigo</h3>
+        <p>Sin cuentas ni registro. Tu progreso se guarda en tu teléfono.</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="juegos" id="juegos">
+    <section class="seccion" aria-labelledby="t-juegos">
+      <div>
+        <h2 id="t-juegos">Nuestros juegos</h2>
+        <p class="intro">Estamos terminando el primero. Cuando salga, lo vas a encontrar aquí con su enlace a la App Store.</p>
+      </div>
+      <div class="ranura">
+        <div class="icono" aria-hidden="true"></div>
+        <h3>Nuestro primer juego</h3>
+        <p>En desarrollo para iPhone</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="seccion legal" id="privacidad" aria-labelledby="t-privacidad">
+    <nav class="indice" aria-label="Índice de la política">
+      <p>En esta política</p>
+      <ol>
+        <li><a href="#p-no">Lo que no hacemos</a></li>
+        <li><a href="#p-telefono">Datos en tu teléfono</a></li>
+        <li><a href="#p-anuncios">Anuncios</a></li>
+        <li><a href="#p-compras">Compras</a></li>
+        <li><a href="#p-internas">Herramientas internas</a></li>
+        <li><a href="#p-ninos">Niños</a></li>
+        <li><a href="#p-derechos">Tus derechos</a></li>
+        <li><a href="#p-cambios">Cambios</a></li>
+      </ol>
+    </nav>
+    <article class="documento">
+      <h2 id="t-privacidad">Política de privacidad</h2>
+      <p class="fecha">Última actualización: 15 de noviembre de 2026</p>
+      <p>Esta política explica qué datos se usan cuando juegas a los juegos de SuperGames, un estudio de <strong>Supertools</strong> (Chile), responsable del tratamiento. Contacto: <a href="mailto:soporte@supertools.cl">soporte@supertools.cl</a>.</p>
+
+      <h3 id="p-no">Lo que no hacemos</h3>
+      <ul>
+        <li>No pedimos registro, nombre, correo ni contraseña para jugar.</li>
+        <li>No tenemos servidores propios que reciban datos de tu partida.</li>
+        <li>No vendemos tus datos personales.</li>
+      </ul>
+
+      <h3 id="p-telefono">Datos guardados en tu teléfono</h3>
+      <p>Tu progreso (puntajes, niveles, gemas, objetos y compras realizadas) se guarda solo en tu dispositivo. Si borras el juego, se borran.</p>
+
+      <h3 id="p-anuncios">Anuncios (Google AdMob)</h3>
+      <p>Nuestros juegos muestran anuncios de Google AdMob. Para mostrarlos y medirlos, Google puede tratar datos como el identificador de publicidad del dispositivo (IDFA), la dirección IP, el modelo del equipo, la versión del sistema y datos de interacción con los anuncios.</p>
+      <ul>
+        <li>Al abrir el juego, te pediremos tu consentimiento cuando la ley lo exija (por ejemplo, en la Unión Europea o el Reino Unido) mediante el formulario de Google.</li>
+        <li>En iPhone, iOS te preguntará si permites el seguimiento. Si no lo permites, solo verás anuncios no personalizados.</li>
+        <li>Puedes cambiar tu elección en cualquier momento desde la opción de privacidad del juego o en Ajustes de iOS, en Privacidad y seguridad, Rastreo.</li>
+      </ul>
+      <p>Más información: <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">cómo usa Google los datos de las apps que usan sus servicios</a>.</p>
+
+      <h3 id="p-compras">Compras dentro del juego</h3>
+      <p>Las compras se hacen a través de Apple (App Store). Nosotros nunca vemos tus datos de pago; solo recibimos de Apple la confirmación de que la compra se realizó para entregarte el objeto. Puedes restaurar tus compras desde el juego.</p>
+
+      <h3 id="p-internas">Herramientas internas</h3>
+      <p>Usamos una aplicación de Google Cloud solo para leer los informes de nuestra propia cuenta de AdMob (ingresos y rendimiento de los anuncios). Esa herramienta no accede a datos de jugadores ni de otras personas.</p>
+
+      <h3 id="p-ninos">Niños</h3>
+      <p>Nuestros juegos no están dirigidos a menores de 13 años y no recopilamos a sabiendas datos de niños. Si crees que un menor nos entregó datos, escríbenos y los eliminaremos.</p>
+
+      <h3 id="p-derechos">Tus derechos</h3>
+      <p>De acuerdo con la ley chilena de protección de datos personales, puedes pedir acceso, rectificación, supresión, oposición o portabilidad de tus datos escribiendo a <a href="mailto:soporte@supertools.cl">soporte@supertools.cl</a>. Como no guardamos datos tuyos en nuestros servidores, en la mayoría de los casos basta con borrar el juego y cambiar tus opciones de anuncios.</p>
+
+      <h3 id="p-cambios">Cambios</h3>
+      <p>Si cambiamos esta política, publicaremos la nueva versión en esta página con su fecha.</p>
+    </article>
+  </section>
+
+  <div class="soporte" id="soporte">
+    <section class="seccion" aria-labelledby="t-soporte">
+      <div>
+        <h2 id="t-soporte">¿Algo no funciona?</h2>
+        <p>Escríbenos con el nombre del juego y el modelo de tu iPhone. Respondemos dentro de 2 días hábiles. Si una compra no aparece, prueba primero con "Restaurar compras" dentro del juego.</p>
+      </div>
+      <a class="correo" href="mailto:soporte@supertools.cl">soporte@supertools.cl</a>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 SuperGames, un estudio de <a href="https://supertools.cl">Supertools</a></span>
+  <span>Hecho en Chile</span>
+</footer>
+
+<script>
+(() => {
+  const c = document.getElementById("juego"), x = c.getContext("2d");
+  const lento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const COLORES = ["#2B3BFF", "#FF5FA2", "#2EE6A6", "#FFD23F"], TINTA = "#1A1446";
+  let W = 0, H = 0, figs = [], chispas = [], pts = 0, toques = 0, antes = 0, prox = 0;
+  let record = +localStorage.getItem("sg-record") || 0;
+
+  function medir() {
+    const r = c.getBoundingClientRect(), d = devicePixelRatio || 1;
+    W = r.width; H = r.height; c.width = W * d; c.height = H * d;
+    x.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function nueva() {
+    const r = 20 + Math.random() * 16;
+    figs.push({ x: r + Math.random() * (W - 2 * r), y: H + r, r,
+      vy: -(45 + Math.random() * 45) * (lento ? .35 : 1),
+      col: COLORES[Math.floor(Math.random() * 4)], forma: Math.floor(Math.random() * 3),
+      rot: Math.random() * 6, vr: (Math.random() - .5) * (lento ? 0 : 2) });
+  }
+  function dibujarFigura(f) {
+    x.save(); x.translate(f.x, f.y); x.rotate(f.rot);
+    x.fillStyle = f.col; x.strokeStyle = TINTA; x.lineWidth = 3; x.beginPath();
+    if (f.forma === 0) x.arc(0, 0, f.r, 0, 7);
+    else if (f.forma === 1) x.roundRect(-f.r * .85, -f.r * .85, f.r * 1.7, f.r * 1.7, 8);
+    else { for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5, rr = i % 2 ? f.r * .5 : f.r; x.lineTo(Math.sin(a) * rr, -Math.cos(a) * rr); } x.closePath(); }
+    x.fill(); x.stroke(); x.restore();
+  }
+  function cuadro(t) {
+    const dt = Math.min((t - antes) / 1000, .05); antes = t;
+    if (t > prox && figs.length < 7) { nueva(); prox = t + 650; }
+    x.clearRect(0, 0, W, H);
+    figs = figs.filter(f => f.y > -f.r * 2);
+    for (const f of figs) { f.y += f.vy * dt; f.rot += f.vr * dt; dibujarFigura(f); }
+    chispas = chispas.filter(p => (p.v -= dt * 2.2) > 0);
+    for (const p of chispas) {
+      p.x += p.dx * dt; p.y += p.dy * dt; p.dy += 500 * dt;
+      x.globalAlpha = p.v; x.fillStyle = p.col; x.fillRect(p.x - 4, p.y - 4, 8, 8);
+    }
+    x.globalAlpha = 1; x.fillStyle = TINTA; x.textAlign = "center";
+    x.font = "34px 'Dela Gothic One', sans-serif"; x.fillText(pts, W / 2, 104);
+    x.font = "500 13px Lexend, sans-serif";
+    x.fillText(toques ? "Récord: " + record : "Toca las figuras", W / 2, 128);
+    requestAnimationFrame(cuadro);
+  }
+  c.addEventListener("pointerdown", e => {
+    const r = c.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
+    toques++;
+    for (let i = figs.length - 1; i >= 0; i--) {
+      const f = figs[i];
+      if (Math.hypot(px - f.x, py - f.y) <= f.r + 8) {
+        figs.splice(i, 1); pts++;
+        if (pts > record) { record = pts; localStorage.setItem("sg-record", record); }
+        if (!lento) for (let k = 0; k < 10; k++)
+          chispas.push({ x: f.x, y: f.y, dx: (Math.random() - .5) * 320, dy: -Math.random() * 260, v: 1, col: f.col });
+        break;
+      }
+    }
+  });
+  addEventListener("resize", medir);
+  medir();
+  for (let i = 0; i < 6; i++) { nueva(); const f = figs[i]; f.y = 170 + Math.random() * (H - 200); }
+  requestAnimationFrame(cuadro);
+})();
+</script>
+</body>
+</html>
